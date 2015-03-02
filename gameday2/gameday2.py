@@ -3,27 +3,43 @@
 
 from ballotbox.ballot import BallotBox
 from ballotbox.singlewinner.plurality import FirstPastPostVoting
+from ballotbox.singlewinner.preferential import BordaVoting
 
 
 class Round(object):
 
-    method = None
-
     def __init__(self, votes):
         self.votes = votes
 
-    @property
-    def winner(self):
-        bb = BallotBox(method=self.method)
+    def cast_votes(self):
         for vote in self.votes:
-            bb.add_vote(vote)
-
-        return bb.get_winner(position_count=None)
+            self.ballotBox.add_vote(vote)
 
 
 class PluralityRound(Round):
 
-    method = FirstPastPostVoting
+    def __init__(self, votes):
+        super(self.__class__, self).__init__(votes)
+
+        self.ballotBox = BallotBox(method=FirstPastPostVoting)
+        self.cast_votes()
+
+    @property
+    def winner(self):
+        return self.ballotBox.get_winner(position_count=None)
+
+
+class BordaRound(Round):
+
+    def __init__(self, votes):
+        super(self.__class__, self).__init__(votes)
+
+        self.ballotBox = BallotBox(method=BordaVoting, mode='standard')
+        self.cast_votes()
+
+    @property
+    def winner(self):
+        return self.ballotBox.get_winner()
 
 
 def preference_from_order(order):
