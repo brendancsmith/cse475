@@ -2,4 +2,8 @@
 
 import gameday2
 
-print gameday2.vote_plurality_example()
+votes = ['A', 'B', 'C', 'D']
+
+round1 = gameday2.PluralityRound(votes)
+
+print round1.winner
