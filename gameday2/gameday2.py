@@ -26,8 +26,9 @@ class PluralityRound(Round):
     method = FirstPastPostVoting
 
 
-def preference_order_from_list():
-    pass
+def preference_from_order(order):
+    preference = {value: (index + 1) for index, value in enumerate(order)}
+    return preference
 
 
 def vote_plurality_example():
