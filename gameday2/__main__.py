@@ -63,7 +63,9 @@ filename = 'Round5_WashingtonRedskins.csv'
 gd.write_to_file(filename, rows)
 
 print "Round 6"
-cast_votes(round6, 'votes/round6_test.csv')
+movies = gd.split_csv_rows(gd.read_csv('votes/round4_test.csv'))[1]
+round6.pairs = gd.pair_up(movies)
+cast_votes(round6, 'votes/round4_test.csv')
 evaluate(round6)
 
 filename = 'Round6_WashingtonRedskins.csv'

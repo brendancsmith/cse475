@@ -1,4 +1,5 @@
 import csv
+from copy import deepcopy
 
 
 def read_csv(filePath):
@@ -7,15 +8,22 @@ def read_csv(filePath):
         return list(reader)
 
 
-def create_vote_dict(csvRows):
-    teams = csvRows.pop(0)[1:]
-    movies = [csvRow.pop(0) for csvRow in csvRows]
+def split_csv_rows(csvRows):
+    rows = deepcopy(csvRows)
 
-    columns = zip(*csvRows)
+    teams = rows.pop(0)[1:]
+    movies = [row.pop(0) for row in rows]
+    innerColumns = zip(*rows)
+
+    return teams, movies, innerColumns
+
+
+def create_vote_dict(csvRows):
+    teams, movies, innerColumns = split_csv_rows(csvRows)
 
     voteDict = {}
     for i, team in enumerate(teams):
-        votes = [int(valStr) for valStr in columns[i]]
+        votes = [int(valStr) for valStr in innerColumns[i]]
         teamVoteDict = {movie: votes[j] for j, movie in enumerate(movies)}
         voteDict[team] = teamVoteDict
 
