@@ -45,7 +45,9 @@ evaluate(round5)
 print "Eliminated:", round5.eliminate()
 
 print "Round 6"
-cast_votes(round6, 'votes/round6_test.csv')
+movies = gd.split_csv_rows(gd.read_csv('votes/round4_test.csv'))[1]
+round6.pairs = gd.pair_up(movies)
+cast_votes(round6, 'votes/round4_test.csv')
 evaluate(round6)
 
 # TODO: tie-break alphabetically

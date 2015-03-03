@@ -97,6 +97,48 @@ class PlurWithElimRound(PluralityRound):
 
         return eliminatedMovies
 
+
 class PairwiseElimRound(Round):
 
-    pass
+    pairs = None
+
+    eliminated = []
+
+    def cast_votes(self, voteDict):
+        for teamVoteDict in voteDict.values():
+            util.assert_borda_point_votes(teamVoteDict)
+
+        votes = util.extract_order_votes(voteDict)
+
+        while True:
+            advancers = []
+            for pair in self.pairs:
+                advancer = util.majority_order_preference(votes,
+                                                          pair[0],
+                                                          pair[1])
+                advancers.append(advancer)
+
+                eliminated = []
+                eliminated += [pairItem for pairItem in pair
+                               if pairItem is not advancer]
+
+                self.eliminated += reversed(eliminated)
+
+            if len(advancers) == 1:
+                print advancers
+                self._winner = advancers[0]
+                break
+
+            self.pairs = util.pair_up(advancers)
+
+    @property
+    def winner(self):
+        return self._winner
+
+    @property
+    def order(self):
+        return [self.winner] + list(reversed(self.eliminated))
+
+    @property
+    def results(self):
+        return None

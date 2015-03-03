@@ -1,3 +1,5 @@
+from copy import copy
+
 def assert_single_vote(teamVoteDict):
     voteSum = sum(teamVoteDict.values())
     assert 0 <= voteSum <= 1
@@ -26,7 +28,7 @@ def extract_individual_votes(voteDict):
     return votes
 
 
-def extract_preference_votes(voteDict):
+def extract_order_votes(voteDict):
     # assumes votes are recorded as points, with decending order
     votes = []
     for teamVoteDict in voteDict.values():
@@ -34,6 +36,16 @@ def extract_preference_votes(voteDict):
                        key=lambda k: teamVoteDict[k],
                        reverse=True)
 
+        votes.append(order)
+
+    return votes
+
+
+def extract_preference_votes(voteDict):
+    votes = []
+    orders = extract_order_votes(voteDict)
+
+    for order in orders:
         preference = preference_from_order(order)
         votes.append(preference)
 
@@ -43,3 +55,23 @@ def extract_preference_votes(voteDict):
 def preference_from_order(order):
     preference = {value: (index + 1) for index, value in enumerate(order)}
     return preference
+
+
+def pair_up(movies):
+    moviesCopy = copy(movies)
+
+    # make safe for odd length
+    # moviesCopy.append(None)
+
+    return zip(moviesCopy[::2], moviesCopy[1::2])
+
+
+def majority_order_preference(orders, movie1, movie2):
+    balance = 0
+
+    for order in orders:
+        isFirstPreferred = order.index(movie1) > order.index(movie2)
+        balance += 1 if isFirstPreferred else -1
+
+    # movie1 will win ties
+    return movie1 if balance >= 0 else movie2
