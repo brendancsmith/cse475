@@ -27,7 +27,10 @@ class PluralityRound(Round):
         return [result[1] for result in self.results]
 
     def cast_votes(self, voteDict):
-        votes = util.extract_single_votes(voteDict)
+        for teamVoteDict in voteDict.values():
+            util.assert_single_vote(teamVoteDict)
+
+        votes = util.extract_individual_votes(voteDict)
 
         for vote in votes:
             self.ballotBox.add_vote(vote)

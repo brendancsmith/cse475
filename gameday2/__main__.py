@@ -18,9 +18,9 @@ def cast_votes(gdRound, filePath):
 
 
 def evaluate(gdRound):
-    print gdRound.winner
-    print gdRound.order
-    print gdRound.results
+    print "Winner:", gdRound.winner
+    print "Order:", gdRound.order
+    print "Result:", gdRound.results
 
 
 cast_votes(round1, 'votes/round1.csv')
