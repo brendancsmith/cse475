@@ -75,3 +75,7 @@ def majority_order_preference(orders, movie1, movie2):
 
     # movie1 will win ties
     return movie1 if balance >= 0 else movie2
+
+
+def alphabetize_results(results):
+    return sorted(results, key=lambda x: (-x[0], x[1]))

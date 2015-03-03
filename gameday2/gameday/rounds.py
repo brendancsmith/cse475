@@ -20,7 +20,8 @@ class PluralityRound(Round):
 
     @property
     def results(self):
-        return self.ballotBox.get_winner(position_count=None)
+        results = self.ballotBox.get_winner(position_count=None)
+        return util.alphabetize_results(results)
 
     @property
     def order(self):
@@ -68,7 +69,8 @@ class BordaRound(Round):
 
     @property
     def results(self):
-        return self.ballotBox.method.get_counts(self.ballotBox)
+        results = self.ballotBox.method.get_counts(self.ballotBox)
+        return util.alphabetize_results(results)
 
     @property
     def order(self):
@@ -141,4 +143,5 @@ class PairwiseElimRound(Round):
 
     @property
     def results(self):
+        # return util.alphabetize_results(results)
         return None
