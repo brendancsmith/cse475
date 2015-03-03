@@ -84,10 +84,18 @@ class BordaRound(Round):
             self.ballotBox.add_vote(vote)
 
 
-class PlurWithElimRound(Round):
+class PlurWithElimRound(PluralityRound):
 
-    pass
+    def cast_votes(self, voteDict):
+        super(PlurWithElimRound, self).cast_votes(voteDict)
 
+    def eliminate(self):
+        minVoteCount = self.results[-1][0]
+
+        eliminatedMovies = [result[1] for result in self.results
+                            if result[0] == minVoteCount]
+
+        return eliminatedMovies
 
 class PairwiseElimRound(Round):
 

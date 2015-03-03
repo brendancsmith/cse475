@@ -39,6 +39,15 @@ print "Round 4"
 cast_votes(round4, 'votes/round4_test.csv')
 evaluate(round4)
 
+print "Round 5"
+cast_votes(round5, 'votes/round5_test.csv')
+evaluate(round5)
+print "Eliminated:", round5.eliminate()
+
+print "Round 6"
+cast_votes(round6, 'votes/round6_test.csv')
+evaluate(round6)
+
 # TODO: tie-break alphabetically
 # TODO: handle candidates with no votes, so that they appear in the
 #       results (I think there's an option to set candidates in BallotBox)
