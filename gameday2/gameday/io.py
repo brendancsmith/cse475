@@ -34,8 +34,9 @@ def read_votes(filePath):
     rows = read_csv(filePath)
     return create_vote_dict(rows)
 
-def write_to_file(filename, rows):
+
+def write_csv(filePath, rows):
     # WRITE TO A CSV FILE
-    with open(filename, 'wb') as f:
+    with open(filePath, 'wb') as f:
         writer = csv.writer(f)
         writer.writerows(rows)
