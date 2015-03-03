@@ -63,7 +63,7 @@ class ApprovalRound(PluralityRound):
 class BordaRound(Round):
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        super(BordaRound, self).__init__()
 
         self.ballotBox = BallotBox(method=BordaVoting, mode='standard')
 
@@ -115,9 +115,9 @@ class PairwiseElimRound(Round):
         while True:
             advancers = []
             for pair in self.pairs:
-                advancer = util.majority_order_preference(votes,
-                                                          pair[0],
-                                                          pair[1])
+                advancer = util.compare_order_preference(votes,
+                                                         pair[0],
+                                                         pair[1])
                 advancers.append(advancer)
 
                 eliminated = []

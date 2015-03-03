@@ -1,4 +1,5 @@
 from copy import copy
+from collections import Counter
 
 def assert_single_vote(teamVoteDict):
     voteSum = sum(teamVoteDict.values())
@@ -66,7 +67,7 @@ def pair_up(movies):
     return zip(moviesCopy[::2], moviesCopy[1::2])
 
 
-def majority_order_preference(orders, movie1, movie2):
+def compare_order_preference(orders, movie1, movie2):
     balance = 0
 
     for order in orders:
@@ -75,6 +76,12 @@ def majority_order_preference(orders, movie1, movie2):
 
     # movie1 will win ties
     return movie1 if balance >= 0 else movie2
+
+
+def majority_preference(orders):
+    topPreferences = [order[0] for order in orders]
+    majorityPreference = Counter(topPreferences).most_common(1)
+    return majorityPreference
 
 
 def alphabetize_results(results):

@@ -40,3 +40,7 @@ def write_csv(filePath, rows):
     with open(filePath, 'wb') as f:
         writer = csv.writer(f)
         writer.writerows(rows)
+
+
+def nest_list(outList):
+    return [[item] for item in outList]
