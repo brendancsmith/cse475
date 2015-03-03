@@ -23,10 +23,19 @@ def evaluate(gdRound):
     print "Result:", gdRound.results
 
 
-cast_votes(round1, 'votes/round1.csv')
+print "Round 1"
+cast_votes(round1, 'votes/round1_test.csv')
 evaluate(round1)
 
-# cast_votes(round1, 'votes/round1.csv')
+print "Round 2"
+cast_votes(round2, 'votes/round2_test.csv')
+evaluate(round2)
+
+print "Round 3"
+cast_votes(round3, 'votes/round3_test.csv')
+evaluate(round3)
+
+# TODO: tie-break alphabetically
 
 
 # preferences = [gameday2.preference_from_order(vote) for vote in ordered_votes]

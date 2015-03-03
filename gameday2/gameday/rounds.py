@@ -15,7 +15,7 @@ class Round(object):
 class PluralityRound(Round):
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        super(PluralityRound, self).__init__()
         self.ballotBox = BallotBox(method=FirstPastPostVoting)
 
     @property
@@ -36,14 +36,27 @@ class PluralityRound(Round):
             self.ballotBox.add_vote(vote)
 
 
-class CumulativeRound(Round):
+class CumulativeRound(PluralityRound):
 
-    pass
+    def cast_votes(self, voteDict):
+        #TODO: assert number of votes is == k
+
+        votes = util.extract_individual_votes(voteDict)
+
+        for vote in votes:
+            self.ballotBox.add_vote(vote)
 
 
-class ApprovalRound(Round):
+class ApprovalRound(PluralityRound):
 
-    pass
+    def cast_votes(self, voteDict):
+        for teamVoteDict in voteDict.values():
+            util.assert_approval_vote(teamVoteDict)
+
+        votes = util.extract_individual_votes(voteDict)
+
+        for vote in votes:
+            self.ballotBox.add_vote(vote)
 
 
 class BordaRound(Round):
