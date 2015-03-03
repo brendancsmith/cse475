@@ -56,12 +56,12 @@ round6 = round_factory(6, gd.PairwiseElimRound)
 # round3.evaluate()
 # print
 
-# preferenceOrder = gd.extract_order_votes(
-#     gd.read_votes('votes/round4_test.csv'))
-
-# print "Majority Preference:", gd.majority_preference(preferenceOrder)
 # round4.vote_from_csv('votes/round4_test.csv')
 # round4.evaluate()
+
+# preferenceOrders = gd.extract_order_votes(
+#     gd.read_votes('votes/round4_test.csv'))
+# print "Majority Preference:", gd.majority_preference(preferenceOrders)
 # print
 
 # round5.vote_from_csv('votes/round5_test.csv')
@@ -73,6 +73,10 @@ round6 = round_factory(6, gd.PairwiseElimRound)
 # round6.pairs = gd.pair_up(movies)
 # round6.vote_from_csv('votes/round4_test.csv')
 # round6.evaluate()
+# preferenceOrders = gd.extract_order_votes(
+#     gd.read_votes('votes/round4_test.csv'))
+
+# print "Pareto Dominations:", gd.determine_pareto_dominations(preferenceOrders)
 # print
 
 # TODO: handle candidates with no votes, so that they appear in the

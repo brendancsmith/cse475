@@ -78,11 +78,47 @@ def compare_order_preference(orders, movie1, movie2):
     return movie1 if balance >= 0 else movie2
 
 
+def determine_pareto_pair_domination(orders, movie1, movie2):
+    pareto1 = True
+    pareto2 = True
+
+    for order in orders:
+        isFirstPreferred = order.index(movie1) > order.index(movie2)
+
+        if isFirstPreferred:
+            pareto2 = False
+        else:
+            pareto1 = False
+    
+    assert not (pareto1 and pareto2)
+
+    if pareto1:
+        return (movie1, movie2)
+    elif pareto2:
+        return (movie2, movie1)
+    else:
+        return None
+
+
 def majority_preference(orders):
     topPreferences = [order[0] for order in orders]
     majorityPreference = Counter(topPreferences).most_common(1)
     return majorityPreference
 
+
+def determine_pareto_dominations(orders):
+    movies = sorted(orders[0])
+
+    paretoPairs = []
+
+    for pair in pair_up(movies):
+        paretoPair = determine_pareto_pair_domination(orders, pair[0], pair[1])
+
+        if paretoPair:
+            paretoPairs.append(paretoPair)
+
+    return paretoPairs
+    
 
 def alphabetize_results(results):
     return sorted(results, key=lambda x: (-x[0], x[1]))
