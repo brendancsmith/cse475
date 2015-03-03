@@ -127,7 +127,6 @@ class PairwiseElimRound(Round):
                 self.eliminated += reversed(eliminated)
 
             if len(advancers) == 1:
-                print advancers
                 self._winner = advancers[0]
                 break
 
