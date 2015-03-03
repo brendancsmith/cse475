@@ -35,7 +35,13 @@ print "Round 3"
 cast_votes(round3, 'votes/round3_test.csv')
 evaluate(round3)
 
+print "Round 4"
+cast_votes(round4, 'votes/round4_test.csv')
+evaluate(round4)
+
 # TODO: tie-break alphabetically
+# TODO: handle candidates with no votes, so that they appear in the
+#       results (I think there's an option to set candidates in BallotBox)
 
 
 # preferences = [gameday2.preference_from_order(vote) for vote in ordered_votes]

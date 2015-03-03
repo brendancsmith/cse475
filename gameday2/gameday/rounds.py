@@ -39,7 +39,7 @@ class PluralityRound(Round):
 class CumulativeRound(PluralityRound):
 
     def cast_votes(self, voteDict):
-        #TODO: assert number of votes is == k
+        # TODO: assert number of votes is == k
 
         votes = util.extract_individual_votes(voteDict)
 
@@ -73,6 +73,15 @@ class BordaRound(Round):
     @property
     def order(self):
         return [result[1] for result in self.results]
+
+    def cast_votes(self, voteDict):
+        for teamVoteDict in voteDict.values():
+            util.assert_borda_point_votes(teamVoteDict)
+
+        votes = util.extract_preference_votes(voteDict)
+
+        for vote in votes:
+            self.ballotBox.add_vote(vote)
 
 
 class PlurWithElimRound(Round):
