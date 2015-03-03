@@ -1,34 +1,33 @@
 #!/usr/bin/env python27
 
-from gameday2 import *
+# run using `python -i .`
 
-round1 = PluralityRound()
-round2 = CumulativeRound()
-round3 = ApprovalRound()
-round4 = BordaRound()
-round5 = PlurWithElimRound()
-round6 = PairwiseElimRound()
+import gameday as gd
 
-
-def evaluate(gameRound):
-    print gameRound.results
+round1 = gd.PluralityRound()
+round2 = gd.CumulativeRound()
+round3 = gd.ApprovalRound()
+round4 = gd.BordaRound()
+round5 = gd.PlurWithElimRound()
+round6 = gd.PairwiseElimRound()
 
 
-singular_votes = ['A', 'B', 'B', 'C', 'B' 'D']
-round1 = gameday2.PluralityRound(singular_votes)
-print round1.winner
-print round1.order
-print round1.results
+def cast_votes(gdRound, filePath):
+    voteDict = gd.read_votes(filePath)
+    gdRound.cast_votes(voteDict)
 
 
-ordered_votes = [
-    ['A', 'B', 'C', 'D'],
-    ['A', 'B', 'C', 'D'],
-    ['A', 'B', 'C', 'D'],
-    ['A', 'B', 'C', 'D']
-]
-preferences = [gameday2.preference_from_order(vote) for vote in ordered_votes]
-round4 = gameday2.BordaRound(preferences)
-print round4.winner
-print round4.order
-print round4.results
+def evaluate(gdRound):
+    print gdRound.winner
+    print gdRound.order
+    print gdRound.results
+
+
+cast_votes(round1, 'votes/round1.csv')
+evaluate(round1)
+
+# cast_votes(round1, 'votes/round1.csv')
+
+
+# preferences = [gameday2.preference_from_order(vote) for vote in ordered_votes]
+# round4 = gameday2.BordaRound(preferences)
