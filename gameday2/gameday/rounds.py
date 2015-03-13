@@ -112,19 +112,25 @@ class PairwiseElimRound(Round):
 
         votes = util.extract_order_votes(voteDict)
 
+        i = 0
         while True:
             advancers = []
+            eliminated = []
             for pair in self.pairs:
                 advancer = util.compare_order_preference(votes,
                                                          pair[0],
                                                          pair[1])
                 advancers.append(advancer)
 
-                eliminated = []
                 eliminated += [pairItem for pairItem in pair
                                if pairItem is not advancer]
 
-                self.eliminated += reversed(eliminated)
+            print eliminated
+            print self.eliminated
+            self.eliminated += reversed(eliminated)
+
+            print "elim round", i, "advancers:", advancers
+            i += 1
 
             if len(advancers) == 1:
                 self._winner = advancers[0]

@@ -44,40 +44,39 @@ round5 = round_factory(5, gd.PlurWithElimRound)
 round6 = round_factory(6, gd.PairwiseElimRound)
 
 
-# round1.vote_from_csv('votes/round1_test.csv')
+# round1.vote_from_csv('votes/Round 1.csv')
 # round1.evaluate()
 # print
 
-# round2.vote_from_csv('votes/round2_test.csv')
+# round2.vote_from_csv('votes/Round 2.csv')
 # round2.evaluate()
 # print
 
-# round3.vote_from_csv('votes/round3_test.csv')
+# round3.vote_from_csv('votes/Round3.csv')
 # round3.evaluate()
 # print
 
-# round4.vote_from_csv('votes/round4_test.csv')
+# round4.vote_from_csv('votes/Round4.csv')
 # round4.evaluate()
+preferenceOrders = gd.extract_order_votes(
+    gd.read_votes('votes/Round4.csv'))
+print "Majority Preference:", gd.majority_preference(preferenceOrders)
+print
 
-# preferenceOrders = gd.extract_order_votes(
-#     gd.read_votes('votes/round4_test.csv'))
-# print "Majority Preference:", gd.majority_preference(preferenceOrders)
-# print
-
-# round5.vote_from_csv('votes/round5_test.csv')
+# round5.vote_from_csv('votes/Round5a.csv')
 # round5.evaluate()
 # print "Eliminated:", round5.eliminate()
 # print
 
-# movies = gd.split_csv_rows(gd.read_csv('votes/round4_test.csv'))[1]
-# round6.pairs = gd.pair_up(movies)
-# round6.vote_from_csv('votes/round4_test.csv')
-# round6.evaluate()
-# preferenceOrders = gd.extract_order_votes(
-#     gd.read_votes('votes/round4_test.csv'))
+movies = gd.split_csv_rows(gd.read_csv('votes/Round4.csv'))[1]
+round6.pairs = gd.pair_up(movies)
+round6.vote_from_csv('votes/Round4.csv')
+round6.evaluate()
+preferenceOrders = gd.extract_order_votes(
+    gd.read_votes('votes/Round4.csv'))
 
-# print "Pareto Dominations:", gd.determine_pareto_dominations(preferenceOrders)
-# print
+print "Pareto Dominations:", gd.determine_pareto_dominations(preferenceOrders)
+print
 
 # TODO: handle candidates with no votes, so that they appear in the
 #       results (I think there's an option to set candidates in BallotBox)

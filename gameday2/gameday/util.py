@@ -71,7 +71,10 @@ def compare_order_preference(orders, movie1, movie2):
     balance = 0
 
     for order in orders:
-        isFirstPreferred = order.index(movie1) > order.index(movie2)
+        # print order
+        # print movie1, order.index(movie1), movie2, order.index(movie2)
+        # print
+        isFirstPreferred = order.index(movie1) < order.index(movie2)
         balance += 1 if isFirstPreferred else -1
 
     # movie1 will win ties
@@ -118,7 +121,7 @@ def determine_pareto_dominations(orders):
             paretoPairs.append(paretoPair)
 
     return paretoPairs
-    
+
 
 def alphabetize_results(results):
     return sorted(results, key=lambda x: (-x[0], x[1]))

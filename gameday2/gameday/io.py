@@ -3,7 +3,7 @@ from copy import deepcopy
 
 
 def read_csv(filePath):
-    with open(filePath, 'rb') as csvfile:
+    with open(filePath, 'rbU') as csvfile:
         reader = csv.reader(csvfile)
         return list(reader)
 
@@ -23,7 +23,16 @@ def create_vote_dict(csvRows):
 
     voteDict = {}
     for i, team in enumerate(teams):
-        votes = [int(valStr) for valStr in innerColumns[i]]
+
+        def val(valStr):
+            val = None
+            if not len(valStr):
+                val = 0
+            else:
+                val = int(valStr)
+            return val
+
+        votes = [val(valStr) for valStr in innerColumns[i]]
         teamVoteDict = {movie: votes[j] for j, movie in enumerate(movies)}
         voteDict[team] = teamVoteDict
 
